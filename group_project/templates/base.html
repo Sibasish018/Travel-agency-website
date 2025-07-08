@@ -15,30 +15,37 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="{{url_for('home')}}" class="brand-link">
-                        <img src="{{ url_for('static', filename='images/TB_logo.jpg') }}" alt="Travel Buddy Logo" class="brand-logo">Travel Buddy
-                </a>
-            </div>
-            <div class="nav-links">
-                <a href="{{url_for('home')}}"><i class="fas fa-home"></i> Home</a>
-                <a href="{{url_for('packages')}}"><i class="fas fa-suitcase"></i> Packages</a>
-                <a href="{{url_for('about')}}"><i class="fas fa-info-circle"></i> About</a>
-                <a href="{{url_for('contact')}}"><i class="fas fa-envelope"></i> Contact</a>
-                {% if current_user.is_authenticated %}
-                    {% if not current_user.is_admin %}
-                        <a href="{{url_for('mybookings')}}"><i class="fas fa-calendar-check"></i> My Bookings</a>
-                    {% else %}
-                        <a href="{{url_for('admin')}}"><i class="fas fa-dashboard"></i> Dashboard</a>
-                    {% endif %}
-                    <a href="{{url_for('logout')}}" class="btn btn-accent"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
-                {% else %}
-                    <a href="{{url_for('login')}}" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</a>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="{{url_for('home')}}" class="brand-link">
+        <img src="{{ url_for('static', filename='images/TB_logo.jpg') }}" alt="Travel Buddy Logo" class="brand-logo">
+        Travel Buddy
+      </a>
+    </div>
+
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span class="hamburger"></span>
+    </button>
+
+    <div class="nav-links">
+      <a href="{{url_for('home')}}"><i class="fas fa-home"></i> Home</a>
+      <a href="{{url_for('packages')}}"><i class="fas fa-suitcase"></i> Packages</a>
+      <a href="{{url_for('about')}}"><i class="fas fa-info-circle"></i> About</a>
+      <a href="{{url_for('contact')}}"><i class="fas fa-envelope"></i> Contact</a>
+      {% if current_user.is_authenticated %}
+          {% if not current_user.is_admin %}
+              <a href="{{url_for('mybookings')}}"><i class="fas fa-calendar-check"></i> My Bookings</a>
+          {% else %}
+              <a href="{{url_for('admin')}}"><i class="fas fa-dashboard"></i> Dashboard</a>
+          {% endif %}
+          <a href="{{url_for('logout')}}" class="btn btn-accent"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+      {% else %}
+          <a href="{{url_for('login')}}" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
 
 
     <!-- Main Content -->
@@ -142,6 +149,19 @@
         document.querySelectorAll('.card, .package-card, .stat-card').forEach(el => {
             observer.observe(el);
         });
+
+                // Hamburger toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggle = document.querySelector('.nav-toggle');
+            const links = document.querySelector('.nav-links');
+            if (toggle && links) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    links.classList.toggle('open');
+                });
+            }
+        });
+
     </script>
 </body>
 </html>
